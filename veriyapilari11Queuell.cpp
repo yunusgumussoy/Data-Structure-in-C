@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct n{
+	int data;
+	n * next;
+};
+
+typedef n node;
+node * root=NULL;
+node * son=NULL;
+void enqueue(int x){
+	if(root==NULL){
+		root=(node*)malloc(sizeof(node));
+		root->data=x;
+		root->next=NULL;	
+		son=root;	
+	}
+	else{
+		son->next=(node*)malloc(sizeof(node));
+		son->next->data=x;
+		son=son->next; //son her zaman en sondaki deðeri gösterecek
+		son->next=NULL;
+	}
+}
+int dequeue(){
+	if(root==NULL){
+		printf("linked list bos");
+		return -1;
+	}
+	int rvalue = root->data;//sileceðimiz veriyi baðladýk
+	node * temp=root;//sileceðimiz veriyi pointer olarak tuttuk
+	root = root-> next;
+	free(temp);
+	return rvalue;
+}
+
+int main(){
+	for(int i=0;i<20;i++){
+		enqueue(i*10);
+	}
+	for(int i=0;i<13;i++){
+		printf("%d",dequeue());
+	}
+	for(int i=0;i<20;i++){
+		enqueue(i*10);
+	}
+	for(int i=0;i<30;i++){
+		printf("%d",dequeue());
+	}
+}
